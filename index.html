@@ -1,1 +1,622 @@
-Patisson Games
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patisson Games</title>
+  <style>
+    :root {
+      --bg: #0e1116;
+      --panel: #151a22;
+      --panel-2: #1b2230;
+      --text: #eef2f7;
+      --muted: #a8b3c2;
+      --accent: #7ee787;
+      --accent-2: #58a6ff;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --max: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(88,166,255,0.16), transparent 35%),
+        radial-gradient(circle at top right, rgba(126,231,135,0.12), transparent 30%),
+        linear-gradient(180deg, #0b0f14 0%, #0e1116 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(11,15,20,0.72);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #081018;
+      font-weight: 900;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover,
+    .footer-links a:hover { color: var(--text); }
+
+    .hero {
+      padding: 84px 0 48px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(40px, 7vw, 72px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      max-width: 9ch;
+    }
+
+    .hero p {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2.4vw, 20px);
+      max-width: 680px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, var(--accent), #aef3b4);
+      color: #081018;
+      box-shadow: var(--shadow);
+    }
+
+    .button.secondary {
+      border-color: var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+    }
+
+    .button:hover { transform: translateY(-1px); }
+
+    .hero-card,
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 24px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top right, rgba(126,231,135,0.16), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(88,166,255,0.16), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -80px auto;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(88,166,255,0.22), transparent 70%);
+      pointer-events: none;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .game-preview {
+      margin-top: 22px;
+      padding: 20px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, #18202d 0%, #10161f 100%);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .game-preview h3,
+    .card h3,
+    .card h2 {
+      margin: 0;
+    }
+
+    .game-meta {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .mock-scene {
+      margin-top: 18px;
+      height: 180px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(126,231,135,0.06), transparent 25%),
+        linear-gradient(135deg, #0f141c, #1b2432);
+    }
+
+    .mock-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.8), rgba(0,0,0,0.15));
+    }
+
+    .mock-room,
+    .mock-player,
+    .mock-loot,
+    .mock-guard {
+      position: absolute;
+      border-radius: 14px;
+    }
+
+    .mock-room {
+      inset: 24px;
+      border: 2px solid rgba(255,255,255,0.16);
+    }
+
+    .mock-player {
+      width: 32px;
+      height: 32px;
+      left: 28%;
+      top: 56%;
+      background: linear-gradient(135deg, var(--accent), #b4ffc4);
+      box-shadow: 0 0 0 8px rgba(126,231,135,0.1);
+    }
+
+    .mock-guard {
+      width: 34px;
+      height: 34px;
+      right: 18%;
+      top: 30%;
+      background: linear-gradient(135deg, #ff7b72, #ffb3ad);
+      box-shadow: 0 0 0 8px rgba(255,123,114,0.08);
+    }
+
+    .mock-loot {
+      width: 22px;
+      height: 22px;
+      right: 28%;
+      bottom: 22%;
+      background: linear-gradient(135deg, #f2cc60, #ffe9a3);
+      box-shadow: 0 0 0 8px rgba(242,204,96,0.08);
+    }
+
+    section {
+      padding: 34px 0;
+    }
+
+    .section-title {
+      margin: 0 0 18px;
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: -0.03em;
+    }
+
+    .section-text {
+      margin: 0 0 24px;
+      color: var(--muted);
+      max-width: 760px;
+      font-size: 17px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 24px;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin: 12px 0 0;
+    }
+
+    .game-section {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .game-cover {
+      min-height: 320px;
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(126,231,135,0.16), transparent 24%),
+        radial-gradient(circle at 80% 25%, rgba(88,166,255,0.18), transparent 26%),
+        linear-gradient(135deg, #141b24, #1a2230 45%, #10161d);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .game-cover-title {
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      max-width: 8ch;
+      margin: 0;
+    }
+
+    .game-cover-sub {
+      color: var(--muted);
+      margin-top: 10px;
+      max-width: 26ch;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .cta {
+      padding: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .cta p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 34px 0 46px;
+      color: var(--muted);
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      padding-top: 22px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .game-section,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 56px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-card,
+      .card,
+      .game-cover {
+        border-radius: 22px;
+      }
+
+      .cta {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#top" class="brand">
+        <div class="logo">P</div>
+        <span>Patisson Games</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#games">Games</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Hypercasual Mobile Games</div>
+          <h1>Patisson Games</h1>
+          <p>
+            Patisson Games develops hypercasual mobile games focused on clear gameplay, fast onboarding,
+            and engaging moment-to-moment player experience.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#games">View Game</a>
+            <a class="button secondary" href="#contact">Contact</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div>
+            <span class="tag">Current Title</span>
+            <div class="game-preview">
+              <h3>Thief Simulator</h3>
+              <div class="game-meta">Stealth • Hypercasual • Mobile</div>
+              <div class="mock-scene" aria-hidden="true">
+                <div class="mock-grid"></div>
+                <div class="mock-room"></div>
+                <div class="mock-player"></div>
+                <div class="mock-guard"></div>
+                <div class="mock-loot"></div>
+              </div>
+            </div>
+          </div>
+          <div class="game-meta">
+            A stealth-focused mobile game about infiltration, collecting loot, and escaping the level.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">About</h2>
+        <p class="section-text">
+          Patisson Games creates mobile titles built around simple controls, readable mechanics,
+          and satisfying gameplay loops. The focus is on delivering games that are easy to start,
+          fast to understand, and enjoyable to replay.
+        </p>
+        <div class="cards">
+          <article class="card">
+            <h3>Fast Onboarding</h3>
+            <p>Gameplay is easy to understand from the first seconds, with clear goals and minimal friction.</p>
+          </article>
+          <article class="card">
+            <h3>Gameplay First</h3>
+            <p>Each project is built around a strong core loop, clean interaction, and mobile-friendly pacing.</p>
+          </article>
+          <article class="card">
+            <h3>Focused Production</h3>
+            <p>Games are developed with attention to clarity, iteration speed, and overall player experience.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="games">
+      <div class="container">
+        <h2 class="section-title">Games</h2>
+        <p class="section-text">
+          The current catalog includes one title: Thief Simulator, a mobile stealth experience centered on
+          infiltration, loot collection, and extraction.
+        </p>
+
+        <div class="game-section">
+          <div class="game-cover">
+            <div>
+              <span class="tag">Featured Game</span>
+              <h3 class="game-cover-title">Thief Simulator</h3>
+              <p class="game-cover-sub">
+                Infiltrate the building, avoid detection, collect valuables, and make it to the exit.
+              </p>
+              <div class="pill-row">
+                <span class="pill">Mobile</span>
+                <span class="pill">Hypercasual</span>
+                <span class="pill">Stealth</span>
+              </div>
+            </div>
+          </div>
+
+          <article class="card">
+            <h3>About the Game</h3>
+            <p>
+              Thief Simulator is a mobile game where the player enters guarded locations, stays out of sight,
+              collects loot, and escapes safely. The experience is designed around accessible stealth gameplay,
+              short sessions, and a clear objective-driven structure.
+            </p>
+            <div class="stats">
+              <div class="stat">
+                <strong>1</strong>
+                <span>title released</span>
+              </div>
+              <div class="stat">
+                <strong>Mobile</strong>
+                <span>target platform</span>
+              </div>
+              <div class="stat">
+                <strong>Stealth</strong>
+                <span>core gameplay</span>
+              </div>
+            </div>
+            <div class="hero-actions" style="margin-top: 24px;">
+              <a class="button primary" href="#contact">Business Contact</a>
+              <a class="button secondary" href="#">Game Link</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container card cta" id="contact">
+        <div>
+          <h2>Open for contact and partnership opportunities</h2>
+          <p>
+            This section can include your email, Google Play link, GitHub, LinkedIn, or press kit.
+          </p>
+        </div>
+        <div class="hero-actions" style="margin-top: 0;">
+          <a class="button primary" href="mailto:patissongames@gmail.com">Email</a>
+          <a class="button secondary" href="#top">Back to Top</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>© 2026 Patisson Games. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#games">Games</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
